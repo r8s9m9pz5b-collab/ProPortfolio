@@ -1,0 +1,2775 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Pro Portfolio">
+<meta name="theme-color" content="#FAF9F6">
+<title>Pro Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600&family=JetBrains+Mono:wght@400;500;600&family=Inter+Tight:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+    --bg: #FAF9F6;
+    --bg-elevated: #FFFFFF;
+    --bg-soft: #F2EFE9;
+    --bg-softer: #F7F4ED;
+    --ink: #1A1814;
+    --ink-soft: #5C564E;
+    --ink-faint: #8B847A;
+    --line: #E8E3DA;
+    --line-soft: #F0EBE2;
+    --gold: #B8924D;
+    --positive: #2D6A4F;
+    --positive-bg: #E8F1ED;
+    --negative: #B73E3E;
+    --negative-bg: #FBEEEB;
+    --warn: #B07A1C;
+    --warn-bg: #F8EFD9;
+    --info: #3B5BAB;
+    --info-bg: #EAEEF7;
+}
+
+- {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+  }
+
+html, body {
+background: var(–bg);
+color: var(–ink);
+font-family: ‘Inter Tight’, -apple-system, sans-serif;
+font-size: 15px;
+line-height: 1.4;
+-webkit-font-smoothing: antialiased;
+-webkit-text-size-adjust: 100%;
+overscroll-behavior: none;
+}
+
+button { font-family: inherit; cursor: pointer; }
+input, textarea, select { font-family: inherit; font-size: 16px; }
+
+.app {
+max-width: 480px;
+margin: 0 auto;
+min-height: 100vh;
+padding-bottom: 100px;
+background: var(–bg);
+}
+
+/* === Top Bar === */
+.topbar {
+padding: 28px 24px 12px;
+background: var(–bg);
+position: sticky;
+top: 0;
+z-index: 10;
+border-bottom: 1px solid var(–line-soft);
+}
+
+.brand {
+font-family: ‘Fraunces’, serif;
+font-weight: 500;
+font-size: 13px;
+letter-spacing: 0.18em;
+text-transform: uppercase;
+color: var(–ink-faint);
+margin-bottom: 4px;
+}
+
+.title {
+font-family: ‘Fraunces’, serif;
+font-weight: 400;
+font-size: 28px;
+line-height: 1.1;
+color: var(–ink);
+letter-spacing: -0.01em;
+}
+
+.subtitle {
+font-size: 13px;
+color: var(–ink-faint);
+margin-top: 4px;
+font-feature-settings: “tnum”;
+}
+
+/* === Empty State (no data) === */
+.empty-state {
+padding: 60px 32px;
+text-align: center;
+}
+
+.empty-icon {
+font-family: ‘Fraunces’, serif;
+font-size: 48px;
+color: var(–ink-faint);
+margin-bottom: 24px;
+font-weight: 300;
+}
+
+.empty-title {
+font-family: ‘Fraunces’, serif;
+font-weight: 400;
+font-size: 22px;
+color: var(–ink);
+margin-bottom: 12px;
+}
+
+.empty-sub {
+font-size: 14px;
+color: var(–ink-soft);
+line-height: 1.5;
+margin-bottom: 32px;
+}
+
+.empty-actions {
+display: flex;
+flex-direction: column;
+gap: 12px;
+align-items: center;
+}
+
+.btn {
+background: var(–ink);
+color: var(–bg);
+border: none;
+padding: 14px 24px;
+border-radius: 10px;
+font-size: 14px;
+font-weight: 500;
+letter-spacing: 0.02em;
+min-width: 200px;
+transition: opacity 0.2s;
+}
+
+.btn:active { opacity: 0.7; }
+
+.btn-secondary {
+background: var(–bg-elevated);
+color: var(–ink);
+border: 1px solid var(–line);
+}
+
+.btn-ghost {
+background: transparent;
+color: var(–ink-soft);
+border: none;
+font-size: 13px;
+padding: 8px 12px;
+min-width: auto;
+}
+
+/* === Hero KPI === */
+.hero {
+padding: 32px 24px 20px;
+}
+
+.hero-label {
+font-family: ‘JetBrains Mono’, monospace;
+font-size: 10px;
+letter-spacing: 0.16em;
+text-transform: uppercase;
+color: var(–ink-faint);
+margin-bottom: 8px;
+}
+
+.hero-value {
+font-family: ‘Fraunces’, serif;
+font-weight: 300;
+font-size: 56px;
+line-height: 1;
+letter-spacing: -0.02em;
+color: var(–ink);
+font-feature-settings: “tnum”;
+}
+
+.hero-meta {
+display: flex;
+gap: 24px;
+margin-top: 16px;
+padding-top: 16px;
+border-top: 1px solid var(–line);
+}
+
+.hero-meta-item { flex: 1; min-width: 0; }
+
+.hero-meta-label {
+font-family: ‘JetBrains Mono’, monospace;
+font-size: 9px;
+letter-spacing: 0.14em;
+text-transform: uppercase;
+color: var(–ink-faint);
+margin-bottom: 4px;
+}
+
+.hero-meta-value {
+font-family: ‘Fraunces’, serif;
+font-size: 20px;
+font-weight: 400;
+font-feature-settings: “tnum”;
+}
+
+.positive { color: var(–positive); }
+.negative { color: var(–negative); }
+.neutral { color: var(–ink-soft); }
+
+/* === Today’s Focus === */
+.focus {
+margin: 24px;
+padding: 20px;
+background: var(–bg-elevated);
+border: 1px solid var(–line);
+border-radius: 16px;
+position: relative;
+overflow: hidden;
+}
+
+.focus::before {
+content: ‘’;
+position: absolute;
+left: 0; top: 0; bottom: 0;
+width: 3px;
+background: var(–gold);
+}
+
+.focus-cat {
+font-family: ‘JetBrains Mono’, monospace;
+font-size: 9px;
+letter-spacing: 0.18em;
+text-transform: uppercase;
+color: var(–gold);
+margin-bottom: 10px;
+}
+
+.focus-label {
+font-family: ‘Fraunces’, serif;
+font-size: 18px;
+font-weight: 400;
+line-height: 1.3;
+color: var(–ink);
+margin-bottom: 6px;
+}
+
+.focus-sub {
+font-size: 13px;
+color: var(–ink-soft);
+font-feature-settings: “tnum”;
+}
+
+/* === Sections === */
+.section { margin: 32px 0 0; }
+
+.section-head {
+display: flex;
+justify-content: space-between;
+align-items: baseline;
+padding: 0 24px 12px;
+}
+
+.section-title {
+font-family: ‘Fraunces’, serif;
+font-size: 14px;
+font-weight: 500;
+text-transform: uppercase;
+letter-spacing: 0.14em;
+color: var(–ink);
+}
+
+.section-link {
+font-size: 12px;
+color: var(–ink-faint);
+}
+
+/* === Action Queue === */
+.actions-card {
+background: var(–bg-elevated);
+margin: 0 24px;
+border-radius: 14px;
+border: 1px solid var(–line);
+overflow: hidden;
+}
+
+.action {
+display: flex;
+gap: 14px;
+align-items: flex-start;
+padding: 14px 16px;
+border-bottom: 1px solid var(–line-soft);
+}
+
+.action:last-child { border-bottom: none; }
+
+.action-icon {
+font-family: ‘JetBrains Mono’, monospace;
+width: 22px; height: 22px;
+border-radius: 6px;
+display: flex;
+align-items: center;
+justify-content: center;
+font-size: 12px;
+flex-shrink: 0;
+margin-top: 2px;
+}
+
+.action.warn .action-icon { background: var(–warn-bg); color: var(–warn); }
+.action.danger .action-icon { background: var(–negative-bg); color: var(–negative); }
+.action.good .action-icon { background: var(–positive-bg); color: var(–positive); }
+
+.action-content { flex: 1; min-width: 0; }
+
+.action-label {
+font-size: 14px;
+font-weight: 500;
+color: var(–ink);
+line-height: 1.3;
+}
+
+.action-detail {
+font-size: 12px;
+color: var(–ink-soft);
+margin-top: 2px;
+font-feature-settings: “tnum”;
+}
+
+.action-empty {
+padding: 18px;
+text-align: center;
+font-size: 13px;
+color: var(–ink-faint);
+}
+
+/* === Concentration === */
+.conc {
+margin: 0 24px;
+padding: 18px 20px;
+background: var(–bg-elevated);
+border: 1px solid var(–line);
+border-radius: 14px;
+}
+
+.conc-row { margin-bottom: 12px; }
+.conc-row:last-child { margin-bottom: 0; }
+
+.conc-label {
+display: flex;
+justify-content: space-between;
+margin-bottom: 6px;
+}
+
+.conc-sym {
+font-family: ‘Fraunces’, serif;
+font-weight: 500;
+font-size: 14px;
+}
+
+.conc-pct {
+font-family: ‘JetBrains Mono’, monospace;
+font-size: 12px;
+color: var(–ink-soft);
+font-feature-settings: “tnum”;
+}
+
+.conc-bar {
+height: 4px;
+background: var(–bg-soft);
+border-radius: 2px;
+overflow: hidden;
+}
+
+.conc-fill {
+height: 100%;
+background: var(–ink);
+transition: width 0.4s ease;
+}
+
+/* === Positions === */
+.positions-list { padding: 0 0 16px; }
+
+.positions-toolbar {
+display: flex;
+justify-content: space-between;
+align-items: center;
+padding: 16px 24px 12px;
+gap: 12px;
+}
+
+.search-input {
+flex: 1;
+background: var(–bg-elevated);
+border: 1px solid var(–line);
+border-radius: 10px;
+padding: 10px 14px;
+font-size: 14px;
+color: var(–ink);
+outline: none;
+transition: border-color 0.2s;
+}
+
+.search-input:focus { border-color: var(–ink-faint); }
+
+.ticker-card {
+background: var(–bg-elevated);
+margin: 0 24px 14px;
+border-radius: 14px;
+border: 1px solid var(–line);
+overflow: hidden;
+}
+
+.ticker-header {
+padding: 16px 18px;
+display: flex;
+justify-content: space-between;
+align-items: flex-start;
+background: var(–bg-soft);
+border-bottom: 1px solid var(–line);
+cursor: pointer;
+}
+
+.ticker-id {
+display: flex;
+flex-direction: column;
+gap: 6px;
+}
+
+.ticker-sym {
+font-family: ‘Fraunces’, serif;
+font-weight: 500;
+font-size: 22px;
+letter-spacing: 0.01em;
+color: var(–ink);
+line-height: 1;
+}
+
+.cov {
+font-family: ‘JetBrains Mono’, monospace;
+font-size: 10px;
+letter-spacing: 0.04em;
+padding: 2px 8px;
+border-radius: 4px;
+text-transform: uppercase;
+width: max-content;
+}
+
+.cov.ok { background: var(–positive-bg); color: var(–positive); }
+.cov.warn { background: var(–negative-bg); color: var(–negative); }
+
+.ticker-totals { text-align: right; }
+
+.ticker-mv {
+font-family: ‘Fraunces’, serif;
+font-size: 19px;
+font-weight: 400;
+font-feature-settings: “tnum”;
+}
+
+.ticker-pl {
+font-family: ‘JetBrains Mono’, monospace;
+font-size: 12px;
+margin-top: 2px;
+font-feature-settings: “tnum”;
+}
+
+.rows { padding: 6px 0; }
+
+.row {
+display: grid;
+grid-template-columns: 1fr auto auto;
+gap: 14px;
+padding: 10px 18px;
+align-items: center;
+border-bottom: 1px solid var(–line-soft);
+cursor: pointer;
+transition: background 0.15s;
+}
+
+.row:last-child { border-bottom: none; }
+.row:active { background: var(–bg-softer); }
+
+.row-label {
+display: flex;
+align-items: center;
+gap: 8px;
+flex-wrap: wrap;
+min-width: 0;
+}
+
+.row-type {
+font-size: 12px;
+color: var(–ink-soft);
+font-weight: 500;
+text-transform: uppercase;
+letter-spacing: 0.08em;
+font-family: ‘JetBrains Mono’, monospace;
+}
+
+.row-detail {
+font-size: 11px;
+color: var(–ink-faint);
+font-family: ‘JetBrains Mono’, monospace;
+font-feature-settings: “tnum”;
+}
+
+.row-mv {
+font-family: ‘JetBrains Mono’, monospace;
+font-size: 13px;
+color: var(–ink);
+text-align: right;
+min-width: 70px;
+font-feature-settings: “tnum”;
+}
+
+.row-pl {
+font-family: ‘JetBrains Mono’, monospace;
+font-size: 12px;
+text-align: right;
+min-width: 70px;
+font-feature-settings: “tnum”;
+}
+
+.option-row {
+background: linear-gradient(to right, var(–bg-soft) 0px, var(–bg-soft) 3px, transparent 3px);
+padding-left: 24px;
+}
+
+.opt-tag {
+font-family: ‘JetBrains Mono’, monospace;
+font-size: 10px;
+font-weight: 600;
+width: 16px;
+height: 16px;
+border-radius: 3px;
+display: inline-flex;
+align-items: center;
+justify-content: center;
+flex-shrink: 0;
+}
+
+.opt-tag.side-s { background: var(–ink); color: var(–bg); }
+.opt-tag.side-l { background: var(–bg-soft); color: var(–ink); border: 1px solid var(–line); }
+
+.opt-strike {
+font-family: ‘JetBrains Mono’, monospace;
+font-size: 12px;
+font-weight: 500;
+color: var(–ink);
+}
+
+.opt-exp {
+font-family: ‘JetBrains Mono’, monospace;
+font-size: 10px;
+color: var(–ink-faint);
+padding: 1px 6px;
+border-radius: 3px;
+background: var(–bg-soft);
+}
+
+.opt-exp.warn { background: var(–warn-bg); color: var(–warn); }
+.opt-exp.danger { background: var(–negative-bg); color: var(–negative); }
+
+/* === Detail Drawer (modal) === */
+.drawer-overlay {
+position: fixed;
+inset: 0;
+background: rgba(26, 24, 20, 0.4);
+z-index: 200;
+opacity: 0;
+pointer-events: none;
+transition: opacity 0.25s;
+}
+
+.drawer-overlay.open {
+opacity: 1;
+pointer-events: auto;
+}
+
+.drawer {
+position: fixed;
+bottom: 0;
+left: 50%;
+transform: translate(-50%, 100%);
+width: 100%;
+max-width: 480px;
+max-height: 80vh;
+background: var(–bg-elevated);
+border-radius: 16px 16px 0 0;
+z-index: 201;
+transition: transform 0.3s cubic-bezier(0.32, 0.72, 0, 1);
+overflow-y: auto;
+-webkit-overflow-scrolling: touch;
+}
+
+.drawer.open { transform: translate(-50%, 0); }
+
+.drawer-handle {
+width: 36px;
+height: 4px;
+background: var(–line);
+border-radius: 2px;
+margin: 12px auto 8px;
+}
+
+.drawer-header {
+padding: 8px 24px 16px;
+border-bottom: 1px solid var(–line-soft);
+}
+
+.drawer-title {
+font-family: ‘Fraunces’, serif;
+font-size: 22px;
+font-weight: 400;
+color: var(–ink);
+margin-bottom: 4px;
+}
+
+.drawer-sub {
+font-size: 13px;
+color: var(–ink-soft);
+font-family: ‘JetBrains Mono’, monospace;
+font-feature-settings: “tnum”;
+}
+
+.drawer-body { padding: 16px 24px 32px; }
+
+.metric-grid {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 16px;
+margin-bottom: 24px;
+}
+
+.metric {
+padding: 12px 14px;
+background: var(–bg-soft);
+border-radius: 10px;
+}
+
+.metric-label {
+font-family: ‘JetBrains Mono’, monospace;
+font-size: 9px;
+letter-spacing: 0.14em;
+text-transform: uppercase;
+color: var(–ink-faint);
+margin-bottom: 4px;
+}
+
+.metric-value {
+font-family: ‘Fraunces’, serif;
+font-size: 18px;
+font-weight: 400;
+font-feature-settings: “tnum”;
+}
+
+.metric-value.small {
+font-size: 14px;
+font-family: ‘JetBrains Mono’, monospace;
+}
+
+.greek-grid {
+display: grid;
+grid-template-columns: repeat(4, 1fr);
+gap: 8px;
+margin: 16px 0;
+padding: 14px;
+background: var(–bg-soft);
+border-radius: 10px;
+}
+
+.greek {
+text-align: center;
+}
+
+.greek-label {
+font-family: ‘JetBrains Mono’, monospace;
+font-size: 9px;
+color: var(–ink-faint);
+margin-bottom: 4px;
+text-transform: uppercase;
+letter-spacing: 0.1em;
+}
+
+.greek-value {
+font-family: ‘Fraunces’, serif;
+font-size: 14px;
+font-feature-settings: “tnum”;
+}
+
+/* === Forms === */
+.form-section { margin-bottom: 20px; }
+
+.form-label {
+display: block;
+font-family: ‘JetBrains Mono’, monospace;
+font-size: 10px;
+letter-spacing: 0.14em;
+text-transform: uppercase;
+color: var(–ink-soft);
+margin-bottom: 6px;
+}
+
+.form-input, .form-select {
+width: 100%;
+background: var(–bg);
+border: 1px solid var(–line);
+border-radius: 8px;
+padding: 12px 14px;
+color: var(–ink);
+outline: none;
+font-family: ‘JetBrains Mono’, monospace;
+font-feature-settings: “tnum”;
+}
+
+.form-input:focus, .form-select:focus { border-color: var(–ink-faint); }
+
+.form-row {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 12px;
+}
+
+.form-actions {
+display: flex;
+gap: 12px;
+margin-top: 24px;
+}
+
+.form-actions .btn { flex: 1; min-width: auto; }
+
+.tab-group {
+display: flex;
+gap: 4px;
+background: var(–bg-soft);
+padding: 4px;
+border-radius: 8px;
+margin-bottom: 20px;
+}
+
+.tab-pill {
+flex: 1;
+text-align: center;
+padding: 8px;
+border-radius: 6px;
+font-size: 13px;
+font-weight: 500;
+background: transparent;
+border: none;
+color: var(–ink-soft);
+transition: all 0.2s;
+}
+
+.tab-pill.active {
+background: var(–bg-elevated);
+color: var(–ink);
+box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+}
+
+textarea.form-input {
+resize: vertical;
+min-height: 120px;
+font-size: 12px;
+}
+
+.csv-zone {
+border: 2px dashed var(–line);
+border-radius: 12px;
+padding: 32px 20px;
+text-align: center;
+background: var(–bg-softer);
+transition: all 0.2s;
+}
+
+.csv-zone.drag {
+border-color: var(–ink);
+background: var(–bg-elevated);
+}
+
+.csv-zone-icon {
+font-family: ‘Fraunces’, serif;
+font-size: 32px;
+color: var(–ink-faint);
+margin-bottom: 12px;
+font-weight: 300;
+}
+
+.csv-zone-text {
+font-size: 14px;
+color: var(–ink);
+margin-bottom: 4px;
+}
+
+.csv-zone-sub {
+font-size: 12px;
+color: var(–ink-faint);
+}
+
+input[type=file] { display: none; }
+
+/* === Toast === */
+.toast {
+position: fixed;
+bottom: 100px;
+left: 50%;
+transform: translate(-50%, 20px);
+background: var(–ink);
+color: var(–bg);
+padding: 12px 20px;
+border-radius: 10px;
+font-size: 14px;
+z-index: 300;
+opacity: 0;
+transition: all 0.3s;
+pointer-events: none;
+max-width: 320px;
+text-align: center;
+}
+
+.toast.show {
+opacity: 1;
+transform: translate(-50%, 0);
+}
+
+.toast.error { background: var(–negative); }
+
+/* === Tab Bar === */
+.tabbar {
+position: fixed;
+bottom: 0;
+left: 0;
+right: 0;
+max-width: 480px;
+margin: 0 auto;
+background: rgba(255, 255, 255, 0.92);
+backdrop-filter: blur(20px);
+-webkit-backdrop-filter: blur(20px);
+border-top: 1px solid var(–line);
+padding: 8px 0 28px;
+display: grid;
+grid-template-columns: repeat(3, 1fr);
+z-index: 100;
+}
+
+.tab {
+background: none;
+border: none;
+padding: 6px;
+text-align: center;
+color: var(–ink-faint);
+transition: color 0.2s;
+}
+
+.tab.active { color: var(–ink); }
+
+.tab-icon {
+font-family: ‘JetBrains Mono’, monospace;
+font-size: 18px;
+margin-bottom: 2px;
+line-height: 1;
+}
+
+.tab-label {
+font-size: 10px;
+letter-spacing: 0.06em;
+text-transform: uppercase;
+}
+
+.screen { display: none; }
+.screen.active { display: block; }
+
+/* iPad sizing */
+@media (min-width: 600px) {
+.app { max-width: 540px; padding-top: 12px; }
+.topbar { padding-top: 36px; }
+.hero-value { font-size: 64px; }
+.drawer { max-width: 540px; }
+}
+
+/* iOS safe area */
+@supports (padding: max(0px)) {
+.tabbar { padding-bottom: max(28px, env(safe-area-inset-bottom)); }
+}
+
+/* === Portfolio Switcher === */
+.portfolio-switcher {
+display: flex;
+align-items: center;
+gap: 8px;
+cursor: pointer;
+margin-bottom: 4px;
+user-select: none;
+}
+.portfolio-switcher .brand-label {
+/* keeps original brand styling */
+}
+.brand-pf-name {
+font-family: ‘JetBrains Mono’, monospace;
+font-size: 11px;
+letter-spacing: 0.04em;
+text-transform: none;
+color: var(–ink);
+background: var(–bg-soft);
+padding: 2px 8px;
+border-radius: 4px;
+font-weight: 500;
+}
+.brand-chevron {
+font-size: 14px;
+color: var(–ink-faint);
+line-height: 1;
+transform: translateY(-1px);
+}
+
+/* === Portfolio Menu (drawer-like list) === */
+.pf-menu-item {
+display: flex;
+justify-content: space-between;
+align-items: center;
+padding: 14px 18px;
+border-bottom: 1px solid var(–line-soft);
+cursor: pointer;
+transition: background 0.15s;
+}
+.pf-menu-item:active {
+background: var(–bg-softer);
+}
+.pf-menu-item:last-child {
+border-bottom: none;
+}
+.pf-menu-item.active {
+background: var(–bg-softer);
+}
+.pf-menu-item-info {
+flex: 1;
+min-width: 0;
+}
+.pf-menu-item-name {
+font-family: ‘Fraunces’, serif;
+font-size: 16px;
+font-weight: 500;
+color: var(–ink);
+margin-bottom: 2px;
+}
+.pf-menu-item-meta {
+font-family: ‘JetBrains Mono’, monospace;
+font-size: 11px;
+color: var(–ink-soft);
+font-feature-settings: “tnum”;
+}
+.pf-menu-item-check {
+font-size: 16px;
+color: var(–gold);
+margin-left: 12px;
+}
+.pf-menu-create {
+padding: 16px 18px;
+border-top: 1px solid var(–line);
+background: var(–bg-soft);
+}
+.pf-card {
+background: var(–bg-elevated);
+border: 1px solid var(–line);
+border-radius: 12px;
+padding: 16px;
+margin-bottom: 10px;
+}
+.pf-card-header {
+display: flex;
+justify-content: space-between;
+align-items: flex-start;
+margin-bottom: 8px;
+}
+.pf-card-name {
+font-family: ‘Fraunces’, serif;
+font-size: 17px;
+font-weight: 500;
+}
+.pf-card-name.active {
+color: var(–gold);
+}
+.pf-card-meta {
+font-family: ‘JetBrains Mono’, monospace;
+font-size: 11px;
+color: var(–ink-soft);
+font-feature-settings: “tnum”;
+}
+.pf-card-actions {
+display: flex;
+gap: 8px;
+margin-top: 12px;
+}
+.pf-card-actions .btn {
+flex: 1;
+min-width: auto;
+font-size: 12px;
+padding: 8px;
+}
+
+/* === Install Banner === */
+.install-banner {
+position: fixed;
+top: 0;
+left: 0;
+right: 0;
+max-width: 480px;
+margin: 0 auto;
+background: var(–ink);
+color: var(–bg);
+padding: 16px 20px;
+z-index: 500;
+transform: translateY(-100%);
+transition: transform 0.4s cubic-bezier(0.32, 0.72, 0, 1);
+box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+}
+.install-banner.show { transform: translateY(0); }
+.install-banner-title {
+font-family: ‘Fraunces’, serif;
+font-size: 16px;
+font-weight: 500;
+margin-bottom: 6px;
+}
+.install-banner-text {
+font-size: 13px;
+line-height: 1.5;
+color: rgba(255,255,255,0.85);
+margin-bottom: 12px;
+}
+.install-banner-text strong { color: var(–bg); font-weight: 500; }
+.install-banner-actions {
+display: flex;
+gap: 8px;
+justify-content: flex-end;
+}
+.install-banner-btn {
+background: rgba(255,255,255,0.15);
+color: var(–bg);
+border: none;
+padding: 8px 14px;
+border-radius: 6px;
+font-size: 12px;
+font-weight: 500;
+letter-spacing: 0.04em;
+text-transform: uppercase;
+}
+.install-banner-btn.primary {
+background: var(–bg);
+color: var(–ink);
+}
+@media (min-width: 600px) {
+.install-banner { max-width: 540px; }
+}
+
+</style></head>
+<body>
+<div class="app">
+
+<!-- Install Instructions Banner -->
+
+<div class="install-banner" id="install-banner">
+    <div class="install-banner-title" id="install-banner-title">Add to Home Screen</div>
+    <div class="install-banner-text" id="install-banner-text">
+        For the best app-like experience, install this to your home screen.
+    </div>
+    <div class="install-banner-actions">
+        <button class="install-banner-btn" onclick="dismissInstallBanner()">Not now</button>
+        <button class="install-banner-btn primary" onclick="dismissInstallBanner(true)">Got it</button>
+    </div>
+</div>
+
+<!-- HOME SCREEN -->
+
+<div class="screen active" id="screen-home">
+    <div class="topbar">
+        <div class="brand portfolio-switcher" onclick="openPortfolioMenu()" id="portfolio-switcher-1"><span class="brand-label">Pro Portfolio</span><span class="brand-pf-name" id="brand-pf-name-1">—</span><span class="brand-chevron">⌄</span></div>
+        <div class="title" id="home-greeting">Good morning</div>
+        <div class="subtitle" id="home-date"></div>
+    </div>
+    <div id="home-content"></div>
+</div>
+
+<!-- POSITIONS SCREEN -->
+
+<div class="screen" id="screen-positions">
+    <div class="topbar">
+        <div class="brand portfolio-switcher" onclick="openPortfolioMenu()" id="portfolio-switcher-2"><span class="brand-label">Pro Portfolio</span><span class="brand-pf-name" id="brand-pf-name-2">—</span><span class="brand-chevron">⌄</span></div>
+        <div class="title">Positions</div>
+        <div class="subtitle" id="positions-subtitle"></div>
+    </div>
+    <div class="positions-toolbar">
+        <input type="text" class="search-input" id="search-input" placeholder="Search ticker..." />
+        <button class="btn btn-secondary" style="min-width: auto; padding: 10px 14px; font-size: 13px;" onclick="openAddDrawer()">+ Add</button>
+    </div>
+    <div id="positions-content"></div>
+</div>
+
+<!-- DATA SCREEN -->
+
+<div class="screen" id="screen-data">
+    <div class="topbar">
+        <div class="brand portfolio-switcher" onclick="openPortfolioMenu()" id="portfolio-switcher-3"><span class="brand-label">Pro Portfolio</span><span class="brand-pf-name" id="brand-pf-name-3">—</span><span class="brand-chevron">⌄</span></div>
+        <div class="title">Data</div>
+        <div class="subtitle">Import & manage portfolio data</div>
+    </div>
+    <div style="padding: 24px;">
+        <!-- Portfolios management -->
+        <div class="form-section">
+            <div class="form-label">Portfolios</div>
+            <div id="pf-management-list"></div>
+            <button class="btn" style="width: 100%; margin-top: 8px;" onclick="promptCreatePortfolio()">+ New portfolio</button>
+        </div>
+
+```
+    <div style="height: 1px; border-top: 1px solid var(--line); margin: 28px 0;"></div>
+    
+    <div class="form-section">
+        <div class="form-label" style="display: flex; justify-content: space-between; align-items: baseline;">
+            <span>Import to <strong style="color: var(--gold); font-family: 'Fraunces', serif; text-transform: none; letter-spacing: 0; font-size: 13px;" id="active-pf-name-import">—</strong></span>
+            <button class="btn-ghost" style="font-size: 11px; padding: 4px 8px;" onclick="openPortfolioMenu()">Switch</button>
+        </div>
+        <div class="csv-zone" id="csv-drop-zone" onclick="document.getElementById('csv-file').click()">
+            <div class="csv-zone-icon">↓</div>
+            <div class="csv-zone-text">Drop CSV here or tap to upload</div>
+            <div class="csv-zone-sub">From IBKR Client Portal · Reports · Flex Queries</div>
+        </div>
+        <input type="file" id="csv-file" accept=".csv,text/csv" />
+    </div>
+    
+    <div class="form-section">
+        <div class="form-label">Or paste CSV text</div>
+        <textarea class="form-input" id="csv-paste" placeholder="Paste IBKR CSV here..."></textarea>
+        <button class="btn" style="margin-top: 12px; width: 100%;" onclick="importPastedCsv()">Import pasted</button>
+    </div>
+    
+    <div class="form-section" style="margin-top: 32px; padding-top: 24px; border-top: 1px solid var(--line);">
+        <div class="form-label">Settings</div>
+        <div style="background: var(--bg-elevated); border: 1px solid var(--line); border-radius: 12px; padding: 16px;">
+            <div class="form-section">
+                <div class="form-label">Cash Balance</div>
+                <input type="number" class="form-input" id="cash-input" placeholder="0.00" />
+            </div>
+            <div class="form-row">
+                <div>
+                    <div class="form-label">Risk-free Rate</div>
+                    <input type="number" class="form-input" id="rate-input" placeholder="0.045" step="0.001" />
+                </div>
+                <div>
+                    <div class="form-label">Dividend Yield</div>
+                    <input type="number" class="form-input" id="div-input" placeholder="0.00" step="0.001" />
+                </div>
+            </div>
+            <button class="btn" style="margin-top: 16px; width: 100%;" onclick="saveSettings()">Save settings</button>
+        </div>
+    </div>
+    
+    <div class="form-section" style="margin-top: 24px;">
+        <div style="background: var(--bg-elevated); border: 1px solid var(--line); border-radius: 12px; padding: 16px;">
+            <div style="font-size: 13px; color: var(--ink-soft); margin-bottom: 12px;">Danger zone</div>
+            <button class="btn btn-secondary" style="width: 100%; margin-bottom: 8px;" onclick="clearActivePortfolio()">Clear active portfolio</button>
+            <button class="btn btn-secondary" style="width: 100%; color: var(--negative); border-color: var(--negative);" onclick="clearAllData()">Delete all portfolios</button>
+        </div>
+    </div>
+    
+    <div style="margin-top: 24px; padding: 16px; background: var(--bg-elevated); border: 1px solid var(--line); border-radius: 12px;">
+        <div style="font-family: 'Fraunces', serif; font-size: 14px; font-weight: 500; margin-bottom: 8px;">Backup & restore</div>
+        <div style="font-size: 12px; color: var(--ink-soft); line-height: 1.5; margin-bottom: 12px;">
+            Browser storage can be cleared by iOS, Safari Privacy, or storage pressure. Export a JSON backup periodically — especially before major iOS updates.
+        </div>
+        <div id="storage-status" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--ink-faint); margin-bottom: 12px;"></div>
+        <div style="display: flex; gap: 8px;">
+            <button class="btn btn-secondary" style="flex: 1;" onclick="exportBackup()">Export JSON</button>
+            <button class="btn btn-secondary" style="flex: 1;" onclick="document.getElementById('backup-file').click()">Import JSON</button>
+            <input type="file" id="backup-file" accept=".json,application/json" />
+        </div>
+    </div>
+    <div style="margin-top: 32px; padding: 16px; background: var(--bg-elevated); border: 1px solid var(--line); border-radius: 12px; font-size: 12px; color: var(--ink-soft); line-height: 1.5;">
+        <strong style="color: var(--ink); display: block; margin-bottom: 8px; font-family: 'Fraunces', serif; font-size: 14px;">About this app</strong>
+        All data stays on this device — nothing is uploaded anywhere. Greeks are computed locally from option mark prices using Black-Scholes. Not financial advice; verify all calculations against your broker.
+    </div>
+    
+    <div style="margin-top: 12px; padding: 16px; background: var(--bg-elevated); border: 1px solid var(--line); border-radius: 12px; font-size: 12px; color: var(--ink-soft); line-height: 1.5;">
+        <strong style="color: var(--ink); display: block; margin-bottom: 8px; font-family: 'Fraunces', serif; font-size: 14px;">Clean install (no header banner)</strong>
+        For a fully clean home-screen install with no header banner, host this HTML file at a URL you control, then open that URL in Safari and Add to Home Screen. <strong style="color: var(--ink);">Free options:</strong> GitHub Pages, Netlify Drop, iCloud Drive (Files app). Ask Claude for setup instructions for any of these.
+    </div>
+</div>
+```
+
+</div>
+
+<!-- TAB BAR -->
+
+<div class="tabbar">
+    <button class="tab active" onclick="navigateTo('home')">
+        <div class="tab-icon">◐</div>
+        <div class="tab-label">Home</div>
+    </button>
+    <button class="tab" onclick="navigateTo('positions')">
+        <div class="tab-icon">▤</div>
+        <div class="tab-label">Positions</div>
+    </button>
+    <button class="tab" onclick="navigateTo('data')">
+        <div class="tab-icon">⊕</div>
+        <div class="tab-label">Data</div>
+    </button>
+</div>
+
+<!-- DETAIL DRAWER -->
+
+<div class="drawer-overlay" id="drawer-overlay" onclick="closeDrawer()"></div>
+<div class="drawer" id="drawer">
+    <div class="drawer-handle"></div>
+    <div id="drawer-content"></div>
+</div>
+
+<!-- TOAST -->
+
+<div class="toast" id="toast"></div>
+
+</div>
+
+<script>// =================================================================
+// STATE & PERSISTENCE (v2: multi-portfolio)
+// =================================================================
+const STORAGE_KEY = ‘pro_portfolio_v2’;
+const LEGACY_KEY = ‘pro_portfolio_v1’;
+let state = loadState();
+
+function newPortfolioId() {
+return ‘pf_’ + Math.random().toString(36).slice(2, 10) + Date.now().toString(36);
+}
+
+function defaultPortfolio(name) {
+return {
+id: newPortfolioId(),
+name: name || ‘Untitled’,
+positions: [],
+cash: 0,
+riskFreeRate: 0.045,
+divYield: 0,
+lastImport: null,
+createdAt: Date.now(),
+};
+}
+
+function defaultState() {
+const first = defaultPortfolio(‘Main Portfolio’);
+return {
+version: 2,
+portfolios: { [first.id]: first },
+activePortfolioId: first.id,
+};
+}
+
+function loadState() {
+// Try v2 from localStorage
+try {
+const raw = localStorage.getItem(STORAGE_KEY);
+if (raw) {
+const parsed = JSON.parse(raw);
+if (parsed && parsed.portfolios && parsed.activePortfolioId
+&& parsed.portfolios[parsed.activePortfolioId]) {
+return parsed;
+}
+}
+} catch (e) {}
+
+```
+// Fall back to sessionStorage if localStorage was cleared (iOS aggressive eviction)
+try {
+    const raw = sessionStorage.getItem(STORAGE_KEY);
+    if (raw) {
+        const parsed = JSON.parse(raw);
+        if (parsed && parsed.portfolios && parsed.activePortfolioId 
+            && parsed.portfolios[parsed.activePortfolioId]) {
+            // Restore to localStorage
+            try { localStorage.setItem(STORAGE_KEY, raw); } catch(e) {}
+            return parsed;
+        }
+    }
+} catch (e) {}
+
+// Try migrating from v1
+try {
+    const legacyRaw = localStorage.getItem(LEGACY_KEY);
+    if (legacyRaw) {
+        const legacy = JSON.parse(legacyRaw);
+        const migrated = defaultState();
+        const pfId = migrated.activePortfolioId;
+        migrated.portfolios[pfId].name = 'Portfolio A';
+        migrated.portfolios[pfId].positions = legacy.positions || [];
+        migrated.portfolios[pfId].cash = legacy.cash || 0;
+        migrated.portfolios[pfId].riskFreeRate = legacy.riskFreeRate || 0.045;
+        migrated.portfolios[pfId].divYield = legacy.divYield || 0;
+        migrated.portfolios[pfId].lastImport = legacy.lastImport || null;
+        // Save migrated, keep legacy intact as backup
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(migrated));
+        return migrated;
+    }
+} catch (e) {}
+
+return defaultState();
+```
+
+}
+
+let lastSaveStatus = { ok: true, time: null, error: null };
+
+function saveState() {
+try {
+const serialized = JSON.stringify(state);
+localStorage.setItem(STORAGE_KEY, serialized);
+// Belt-and-suspenders: also write to sessionStorage as a within-session backup
+try { sessionStorage.setItem(STORAGE_KEY, serialized); } catch(e) {}
+lastSaveStatus = { ok: true, time: Date.now(), error: null };
+} catch (e) {
+lastSaveStatus = { ok: false, time: Date.now(), error: e.message || String(e) };
+// Fall back to sessionStorage if localStorage is full or blocked
+try { sessionStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch(e2) {}
+showToast(’Save failed: ’ + (e.message || ‘unknown error’), ‘error’);
+}
+}
+
+function getSaveStatus() {
+if (!lastSaveStatus.time) return { label: ‘Not yet saved’, ok: true };
+const ago = Date.now() - lastSaveStatus.time;
+const min = Math.floor(ago / 60000);
+let label;
+if (min < 1) label = ‘Saved just now’;
+else if (min < 60) label = `Saved ${min}m ago`;
+else label = ’Saved ’ + new Date(lastSaveStatus.time).toLocaleString();
+return { label, ok: lastSaveStatus.ok, error: lastSaveStatus.error };
+}
+
+function checkStorageHealth() {
+// Test that localStorage is actually working
+try {
+const testKey = ‘**pp_test**’;
+localStorage.setItem(testKey, ‘1’);
+const got = localStorage.getItem(testKey);
+localStorage.removeItem(testKey);
+return got === ‘1’;
+} catch (e) {
+return false;
+}
+}
+
+// === Active portfolio helpers ===
+function getActivePortfolio() {
+return state.portfolios[state.activePortfolioId];
+}
+
+function getAllPortfolios() {
+return Object.values(state.portfolios).sort((a,b) => a.createdAt - b.createdAt);
+}
+
+function switchPortfolio(id) {
+if (state.portfolios[id]) {
+state.activePortfolioId = id;
+saveState();
+render();
+showToast(`Switched to ${state.portfolios[id].name}`);
+}
+}
+
+function createPortfolio(name) {
+const pf = defaultPortfolio(name);
+state.portfolios[pf.id] = pf;
+state.activePortfolioId = pf.id;
+saveState();
+render();
+showToast(`Created "${name}"`);
+return pf.id;
+}
+
+function renamePortfolio(id, newName) {
+if (state.portfolios[id]) {
+state.portfolios[id].name = newName;
+saveState();
+render();
+showToast(‘Renamed’);
+}
+}
+
+function deletePortfolio(id) {
+const all = getAllPortfolios();
+if (all.length <= 1) {
+showToast(‘Cannot delete the only portfolio’, ‘error’);
+return;
+}
+delete state.portfolios[id];
+if (state.activePortfolioId === id) {
+state.activePortfolioId = getAllPortfolios()[0].id;
+}
+saveState();
+render();
+showToast(‘Portfolio deleted’);
+}
+
+// =================================================================
+// BLACK-SCHOLES & GREEKS
+// =================================================================
+function normCdf(x) {
+return 0.5 * (1 + erf(x / Math.SQRT2));
+}
+
+function normPdf(x) {
+return Math.exp(-x * x / 2) / Math.sqrt(2 * Math.PI);
+}
+
+// Abramowitz & Stegun erf approximation
+function erf(x) {
+const sign = x >= 0 ? 1 : -1;
+x = Math.abs(x);
+const a1 =  0.254829592;
+const a2 = -0.284496736;
+const a3 =  1.421413741;
+const a4 = -1.453152027;
+const a5 =  1.061405429;
+const p  =  0.3275911;
+const t = 1.0 / (1.0 + p * x);
+const y = 1.0 - ((((a5*t + a4)*t + a3)*t + a2)*t + a1)*t * Math.exp(-x*x);
+return sign * y;
+}
+
+function bsPrice(S, K, T, r, q, sigma, isCall) {
+if (T <= 0 || sigma <= 0) {
+return isCall ? Math.max(0, S - K) : Math.max(0, K - S);
+}
+const sqrtT = Math.sqrt(T);
+const d1 = (Math.log(S/K) + (r - q + sigma*sigma/2)*T) / (sigma*sqrtT);
+const d2 = d1 - sigma*sqrtT;
+if (isCall) {
+return S*Math.exp(-q*T)*normCdf(d1) - K*Math.exp(-r*T)*normCdf(d2);
+}
+return K*Math.exp(-r*T)*normCdf(-d2) - S*Math.exp(-q*T)*normCdf(-d1);
+}
+
+function bsVega(S, K, T, r, q, sigma) {
+if (T <= 0 || sigma <= 0) return 0;
+const sqrtT = Math.sqrt(T);
+const d1 = (Math.log(S/K) + (r - q + sigma*sigma/2)*T) / (sigma*sqrtT);
+return S * Math.exp(-q*T) * normPdf(d1) * sqrtT;
+}
+
+function impliedVol(marketPrice, S, K, T, r, q, isCall) {
+if (T <= 0 || S <= 0 || K <= 0 || marketPrice <= 0) return null;
+const intrinsic = isCall ? Math.max(0, S - K) : Math.max(0, K - S);
+if (marketPrice <= intrinsic + 0.005) return null;
+
+```
+let sigma = Math.sqrt(2 * Math.PI / T) * marketPrice / S;
+sigma = Math.max(0.05, Math.min(sigma, 5.0));
+
+for (let i = 0; i < 50; i++) {
+    const price = bsPrice(S, K, T, r, q, sigma, isCall);
+    const diff = price - marketPrice;
+    if (Math.abs(diff) < 1e-5) return sigma;
+    const v = bsVega(S, K, T, r, q, sigma);
+    if (v < 1e-10) return null;
+    sigma -= diff / v;
+    sigma = Math.max(0.001, Math.min(sigma, 10.0));
+}
+return sigma;
+```
+
+}
+
+function computeGreeks(S, K, T, r, q, sigma, isCall, side) {
+if (T <= 0 || sigma === null || sigma <= 0 || S <= 0 || K <= 0) {
+return { delta: null, gamma: null, theta: null, vega: null, iv: sigma };
+}
+const sqrtT = Math.sqrt(T);
+const d1 = (Math.log(S/K) + (r - q + sigma*sigma/2)*T) / (sigma*sqrtT);
+const d2 = d1 - sigma*sqrtT;
+const sign = side === ‘Short’ ? -1 : 1;
+
+```
+let delta;
+if (isCall) delta = sign * Math.exp(-q*T) * normCdf(d1);
+else delta = sign * Math.exp(-q*T) * (normCdf(d1) - 1);
+
+const gamma = sign * Math.exp(-q*T) * normPdf(d1) / (S * sigma * sqrtT);
+const vega = sign * S * Math.exp(-q*T) * normPdf(d1) * sqrtT / 100;
+
+let theta;
+if (isCall) {
+    theta = sign * (-(S*Math.exp(-q*T)*normPdf(d1)*sigma)/(2*sqrtT) 
+                   - r*K*Math.exp(-r*T)*normCdf(d2)
+                   + q*S*Math.exp(-q*T)*normCdf(d1)) / 365;
+} else {
+    theta = sign * (-(S*Math.exp(-q*T)*normPdf(d1)*sigma)/(2*sqrtT)
+                   + r*K*Math.exp(-r*T)*normCdf(-d2)
+                   - q*S*Math.exp(-q*T)*normCdf(-d1)) / 365;
+}
+
+return { delta, gamma, theta, vega, iv: sigma };
+```
+
+}
+
+// =================================================================// CSV PARSING
+// =================================================================
+function parseCSV(text) {
+const rows = [];
+let row = [];
+let cell = ‘’;
+let inQuotes = false;
+
+```
+for (let i = 0; i < text.length; i++) {
+    const ch = text[i];
+    if (inQuotes) {
+        if (ch === '"' && text[i+1] === '"') { cell += '"'; i++; }
+        else if (ch === '"') inQuotes = false;
+        else cell += ch;
+    } else {
+        if (ch === '"') inQuotes = true;
+        else if (ch === ',') { row.push(cell); cell = ''; }
+        else if (ch === '\n' || ch === '\r') {
+            if (cell !== '' || row.length > 0) { row.push(cell); rows.push(row); }
+            row = []; cell = '';
+            if (ch === '\r' && text[i+1] === '\n') i++;
+        }
+        else cell += ch;
+    }
+}
+if (cell !== '' || row.length > 0) { row.push(cell); rows.push(row); }
+return rows.filter(r => r.length > 1);
+```
+
+}
+
+function importIBKRCSV(text) {
+const rows = parseCSV(text);
+if (rows.length === 0) {
+showToast(‘No rows found in CSV’, ‘error’);
+return;
+}
+
+```
+// Find header row — IBKR puts a header before data rows
+// Look for row containing both "AssetClass" and "Symbol"
+let headerIdx = -1;
+for (let i = 0; i < rows.length; i++) {
+    const row = rows[i].map(c => c.trim());
+    if (row.includes('AssetClass') && row.includes('Symbol')) {
+        headerIdx = i;
+        break;
+    }
+}
+
+if (headerIdx === -1) {
+    showToast('Could not find header row. Need columns: AssetClass, Symbol, etc.', 'error');
+    return;
+}
+
+const headers = rows[headerIdx].map(c => c.trim());
+const colIdx = name => headers.indexOf(name);
+
+const required = ['AssetClass', 'Symbol', 'Description', 'Quantity', 'MarkPrice', 'CostBasisPrice'];
+const missing = required.filter(r => colIdx(r) === -1);
+if (missing.length > 0) {
+    showToast(`Missing required columns: ${missing.join(', ')}`, 'error');
+    return;
+}
+
+const newPositions = [];
+let skipped = 0;
+
+for (let i = headerIdx + 1; i < rows.length; i++) {
+    const row = rows[i];
+    const assetClass = row[colIdx('AssetClass')];
+    if (assetClass !== 'STK' && assetClass !== 'OPT' && assetClass !== 'WAR') {
+        skipped++;
+        continue;
+    }
+    
+    const symbolRaw = row[colIdx('Symbol')] || '';
+    // For options, IBKR puts OCC code with spaces in Symbol — extract underlying
+    let underlying = symbolRaw;
+    if (assetClass === 'OPT' && symbolRaw.includes(' ')) {
+        underlying = symbolRaw.trim().split(/\s+/)[0];
+    }
+    // Treat warrants as stocks for simplicity, with a flag
+    const isWarrant = assetClass === 'WAR';
+    // Map OPEN1 (long-dated OpenDoor option) and OPENL/W/Z warrants to OPEN
+    if (underlying === 'OPEN1' || underlying.startsWith('OPEN') && isWarrant) {
+        underlying = 'OPEN';
+    }
+    
+    const qty = parseFloat(row[colIdx('Quantity')]) || 0;
+    const mark = parseFloat(row[colIdx('MarkPrice')]) || 0;
+    const cost = parseFloat(row[colIdx('CostBasisPrice')]) || 0;
+    const description = row[colIdx('Description')] || symbolRaw;
+    
+    if (assetClass === 'STK' || assetClass === 'WAR') {
+        newPositions.push({
+            id: cryptoId(),
+            kind: isWarrant ? 'warrant' : 'stock',
+            ticker: underlying,
+            description,
+            quantity: qty,
+            mark,
+            costBasis: cost,
+            source: 'ibkr',
+            importedAt: Date.now(),
+        });
+    } else if (assetClass === 'OPT') {
+        const strike = parseFloat(row[colIdx('Strike')]) || 0;
+        const expiryRaw = row[colIdx('Expiry')] || '';
+        const putCall = row[colIdx('Put/Call')] || '';
+        
+        // IBKR expiry is YYYYMMDD
+        let expiry = null;
+        if (expiryRaw.length === 8) {
+            const yr = parseInt(expiryRaw.slice(0,4));
+            const mo = parseInt(expiryRaw.slice(4,6)) - 1;
+            const dy = parseInt(expiryRaw.slice(6,8));
+            expiry = new Date(yr, mo, dy).toISOString().slice(0,10);
+        }
+        
+        newPositions.push({
+            id: cryptoId(),
+            kind: 'option',
+            ticker: underlying,
+            description,
+            quantity: qty,
+            mark,
+            costBasis: cost,
+            strike,
+            expiry,
+            type: putCall === 'C' ? 'Call' : 'Put',
+            source: 'ibkr',
+            importedAt: Date.now(),
+        });
+    }
+}
+
+// Replace all IBKR-sourced positions with the new import (preserving manual ones)
+getActivePortfolio().positions = getActivePortfolio().positions.filter(p => p.source !== 'ibkr');
+getActivePortfolio().positions.push(...newPositions);
+getActivePortfolio().lastImport = Date.now();
+saveState();
+
+showToast(`Imported ${newPositions.length} positions${skipped > 0 ? ` (${skipped} skipped)` : ''}`);
+render();
+```
+
+}
+
+function cryptoId() {
+return Math.random().toString(36).slice(2, 10) + Date.now().toString(36);
+}
+
+// =================================================================
+// CALCULATIONS
+// =================================================================
+function enrichOption(opt, underlyingMark) {
+if (!opt.expiry) return { …opt };
+const today = new Date();
+today.setHours(0,0,0,0);
+const expDate = new Date(opt.expiry + ‘T00:00:00’);
+const dte = Math.round((expDate - today) / (1000*60*60*24));
+const T = Math.max(dte, 0) / 365;
+
+```
+const contracts = Math.abs(opt.quantity);
+const side = opt.quantity < 0 ? 'Short' : 'Long';
+const sign = opt.quantity < 0 ? -1 : 1;
+const isCall = opt.type === 'Call';
+
+const mv = opt.mark * contracts * 100 * sign;
+const cb = opt.costBasis * contracts * 100 * sign;
+const pl = (opt.mark - opt.costBasis) * contracts * 100 * sign;
+const ret = cb !== 0 ? pl / Math.abs(cb) : 0;
+
+let iv = null, delta = null, gamma = null, theta = null, vega = null;
+if (T > 0 && underlyingMark > 0 && opt.mark > 0) {
+    iv = impliedVol(opt.mark, underlyingMark, opt.strike, T, getActivePortfolio().riskFreeRate, getActivePortfolio().divYield, isCall);
+    if (iv !== null) {
+        const g = computeGreeks(underlyingMark, opt.strike, T, getActivePortfolio().riskFreeRate, getActivePortfolio().divYield, iv, isCall, side);
+        delta = g.delta; gamma = g.gamma; theta = g.theta; vega = g.vega;
+    }
+}
+
+return { ...opt, dte, contracts, side, mv, cb, pl, ret, iv, delta, gamma, theta, vega };
+```
+
+}
+
+function enrichStock(s) {
+const mv = s.quantity * s.mark;
+const cb = s.quantity * s.costBasis;
+const pl = mv - cb;
+const ret = cb !== 0 ? pl / Math.abs(cb) : 0;
+return { …s, mv, cb, pl, ret };
+}
+
+function buildTickerMap() {
+const map = {};
+
+```
+// First pass: stocks and warrants establish underlying marks
+for (const p of getActivePortfolio().positions) {
+    if (p.kind === 'stock' || p.kind === 'warrant') {
+        if (!map[p.ticker]) map[p.ticker] = { ticker: p.ticker, stock: null, warrants: [], options: [] };
+        const enriched = enrichStock(p);
+        if (p.kind === 'stock') map[p.ticker].stock = enriched;
+        else map[p.ticker].warrants.push(enriched);
+    }
+}
+
+// Second pass: options need underlying mark from the stock
+for (const p of getActivePortfolio().positions) {
+    if (p.kind === 'option') {
+        if (!map[p.ticker]) map[p.ticker] = { ticker: p.ticker, stock: null, warrants: [], options: [] };
+        const underlyingMark = map[p.ticker].stock ? map[p.ticker].stock.mark : 0;
+        map[p.ticker].options.push(enrichOption(p, underlyingMark));
+    }
+}
+
+// Compute totals per ticker
+const tickers = Object.values(map);
+for (const t of tickers) {
+    t.stockMV = t.stock ? t.stock.mv : 0;
+    t.warrantsMV = t.warrants.reduce((s,w) => s + w.mv, 0);
+    t.optionsMV = t.options.reduce((s,o) => s + o.mv, 0);
+    t.totalMV = t.stockMV + t.warrantsMV + t.optionsMV;
+    
+    t.stockPL = t.stock ? t.stock.pl : 0;
+    t.warrantsPL = t.warrants.reduce((s,w) => s + w.pl, 0);
+    t.optionsPL = t.options.reduce((s,o) => s + o.pl, 0);
+    t.totalPL = t.stockPL + t.warrantsPL + t.optionsPL;
+    
+    // Coverage analysis
+    const shares = t.stock ? t.stock.quantity : 0;
+    const longCalls = t.options.filter(o => o.type === 'Call' && o.side === 'Long')
+        .reduce((s,o) => s + o.contracts, 0);
+    const shortCalls = t.options.filter(o => o.type === 'Call' && o.side === 'Short')
+        .reduce((s,o) => s + o.contracts, 0);
+    t.shares = shares;
+    t.longCalls = longCalls;
+    t.shortCalls = shortCalls;
+    t.coverageGap = shares + (longCalls * 100) - (shortCalls * 100);
+    
+    // Earliest DTE
+    const futureOpts = t.options.filter(o => o.dte !== undefined && o.dte >= 0);
+    t.nearestDTE = futureOpts.length > 0 ? Math.min(...futureOpts.map(o => o.dte)) : null;
+    
+    // Aggregate greeks (multiplied by contracts × 100)
+    t.netDelta = 0;
+    t.netGamma = 0;
+    t.netTheta = 0;
+    t.netVega = 0;
+    for (const o of t.options) {
+        if (o.delta !== null) t.netDelta += o.delta * o.contracts * 100;
+        if (o.gamma !== null) t.netGamma += o.gamma * o.contracts * 100;
+        if (o.theta !== null) t.netTheta += o.theta * o.contracts * 100;
+        if (o.vega !== null) t.netVega += o.vega * o.contracts * 100;
+    }
+    // Add stock delta (1 per share)
+    if (t.stock) t.netDelta += t.stock.quantity;
+}
+
+tickers.sort((a, b) => Math.abs(b.totalMV) - Math.abs(a.totalMV));
+return tickers;
+```
+
+}
+
+function buildPortfolioSummary() {
+const tickers = buildTickerMap();
+const stockMV = tickers.reduce((s,t) => s + t.stockMV + t.warrantsMV, 0);
+const optionsMV = tickers.reduce((s,t) => s + t.optionsMV, 0);
+const totalPL = tickers.reduce((s,t) => s + t.totalPL, 0);
+const accountValue = stockMV + optionsMV + (getActivePortfolio().cash || 0);
+
+```
+return {
+    tickers,
+    stockMV,
+    optionsMV,
+    totalPL,
+    accountValue,
+    cash: getActivePortfolio().cash || 0,
+};
+```
+
+}
+
+// =================================================================// FORMATTING HELPERS
+// =================================================================
+function fmtMoney(n, opts = {}) {
+if (n === null || n === undefined || isNaN(n)) return ‘—’;
+const sign = opts.sign && n > 0 ? ‘+’ : ‘’;
+if (opts.compact && Math.abs(n) >= 1000) {
+return `${sign}${n < 0 ? '-' : ''}$${(Math.abs(n)/1000).toFixed(1)}k`;
+}
+return n >= 0 ? `${sign}$${Math.round(n).toLocaleString()}` : `-$${Math.round(Math.abs(n)).toLocaleString()}`;
+}
+
+function fmtPct(n, sign = false) {
+if (n === null || n === undefined || isNaN(n)) return ‘—’;
+const s = sign && n > 0 ? ‘+’ : ‘’;
+return `${s}${(n*100).toFixed(1)}%`;
+}
+
+function plClass(n) {
+if (n === null || n === undefined || n === 0) return ‘neutral’;
+return n > 0 ? ‘positive’ : ‘negative’;
+}
+
+// =================================================================
+// RENDERING
+// =================================================================
+function render() {
+renderHome();
+renderPositions();
+renderSettings();
+renderPortfolioManagement();
+updateGreeting();
+updatePortfolioBrandLabels();
+updateStorageStatus();
+}
+
+function updateGreeting() {
+const h = new Date().getHours();
+const greet = h < 12 ? ‘Good morning’ : h < 17 ? ‘Good afternoon’ : ‘Good evening’;
+document.getElementById(‘home-greeting’).textContent = greet;
+const d = new Date();
+document.getElementById(‘home-date’).textContent = d.toLocaleDateString(‘en-US’, { weekday:‘long’, year:‘numeric’, month:‘long’, day:‘numeric’ });
+}
+
+function renderHome() {
+const summary = buildPortfolioSummary();
+const content = document.getElementById(‘home-content’);
+
+```
+if (getActivePortfolio().positions.length === 0) {
+    content.innerHTML = `
+        <div class="empty-state">
+            <div class="empty-icon">○</div>
+            <div class="empty-title">No positions yet</div>
+            <div class="empty-sub">Import a Flex Query CSV from IBKR, or add positions manually to begin.</div>
+            <div class="empty-actions">
+                <button class="btn" onclick="navigateTo('data')">Import data</button>
+                <button class="btn-ghost" onclick="openAddDrawer()">Add manually</button>
+            </div>
+        </div>
+    `;
+    return;
+}
+
+const actions = computeActions(summary);
+const focus = computeFocus(summary, actions);
+const top3 = summary.tickers.filter(t => t.stockMV > 0).slice(0, 3);
+const totalStockOnly = summary.tickers.reduce((s,t) => s + t.stockMV, 0);
+
+content.innerHTML = `
+    <div class="hero">
+        <div class="hero-label">Account Value</div>
+        <div class="hero-value">${fmtMoney(summary.accountValue)}</div>
+        <div class="hero-meta">
+            <div class="hero-meta-item">
+                <div class="hero-meta-label">Open P/L</div>
+                <div class="hero-meta-value ${plClass(summary.totalPL)}">${fmtMoney(summary.totalPL, {sign:true})}</div>
+            </div>
+            <div class="hero-meta-item">
+                <div class="hero-meta-label">Cash</div>
+                <div class="hero-meta-value">${fmtMoney(summary.cash)}</div>
+            </div>
+            <div class="hero-meta-item">
+                <div class="hero-meta-label">Tickers</div>
+                <div class="hero-meta-value">${summary.tickers.length}</div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="focus">
+        <div class="focus-cat">Today · ${focus.category}</div>
+        <div class="focus-label">${focus.label}</div>
+        <div class="focus-sub">${focus.subtext}</div>
+    </div>
+    
+    <div class="section">
+        <div class="section-head">
+            <div class="section-title">Action queue</div>
+            <span class="section-link">${actions.length} item${actions.length === 1 ? '' : 's'}</span>
+        </div>
+        <div class="actions-card">
+            ${actions.length === 0 ? '<div class="action-empty">No urgent items</div>' : 
+              actions.map(a => `
+                <div class="action ${a.severity}">
+                    <div class="action-icon">${iconFor(a.kind)}</div>
+                    <div class="action-content">
+                        <div class="action-label">${a.label}</div>
+                        <div class="action-detail">${a.detail}</div>
+                    </div>
+                </div>
+            `).join('')}
+        </div>
+    </div>
+    
+    ${top3.length > 0 ? `
+    <div class="section">
+        <div class="section-head">
+            <div class="section-title">Concentration</div>
+            <span class="section-link">Top ${top3.length}</span>
+        </div>
+        <div class="conc">
+            ${top3.map(t => {
+                const pct = totalStockOnly > 0 ? t.stockMV / totalStockOnly : 0;
+                return `
+                <div class="conc-row">
+                    <div class="conc-label">
+                        <span class="conc-sym">${t.ticker}</span>
+                        <span class="conc-pct">${(pct*100).toFixed(1)}%</span>
+                    </div>
+                    <div class="conc-bar">
+                        <div class="conc-fill" style="width: ${Math.min(pct*100*4, 100)}%"></div>
+                    </div>
+                </div>`;
+            }).join('')}
+        </div>
+    </div>` : ''}
+    
+    <div style="height:32px"></div>
+`;
+```
+
+}
+
+function renderPositions() {
+const summary = buildPortfolioSummary();
+const subtitle = document.getElementById(‘positions-subtitle’);
+subtitle.textContent = getActivePortfolio().positions.length === 0
+? ‘No positions yet’
+: `${summary.tickers.length} ticker${summary.tickers.length===1?'':'s'} · ${fmtMoney(summary.stockMV + summary.optionsMV)} invested`;
+
+```
+const content = document.getElementById('positions-content');
+if (getActivePortfolio().positions.length === 0) {
+    content.innerHTML = `
+        <div class="empty-state">
+            <div class="empty-icon">○</div>
+            <div class="empty-title">Nothing to show</div>
+            <div class="empty-sub">Add positions or import from IBKR to populate this view.</div>
+            <div class="empty-actions">
+                <button class="btn" onclick="navigateTo('data')">Import data</button>
+            </div>
+        </div>
+    `;
+    return;
+}
+
+const search = (document.getElementById('search-input').value || '').trim().toLowerCase();
+const filtered = search 
+    ? summary.tickers.filter(t => t.ticker.toLowerCase().includes(search))
+    : summary.tickers;
+
+content.innerHTML = `<div class="positions-list">${filtered.map(renderTickerCard).join('')}</div>`;
+```
+
+}
+
+function renderTickerCard(t) {
+let coverageHtml = ‘’;
+if (t.shortCalls > 0) {
+if (t.coverageGap >= 0) {
+coverageHtml = `<span class="cov ok">Covered · ${Math.round(t.coverageGap)} excess</span>`;
+} else {
+coverageHtml = `<span class="cov warn">${Math.abs(Math.round(t.coverageGap))} uncovered</span>`;
+}
+}
+
+```
+let stockHtml = '';
+if (t.stock) {
+    stockHtml = `
+    <div class="row stock-row" onclick="openPositionDetail('${t.stock.id}')">
+        <div class="row-label">
+            <span class="row-type">Shares</span>
+            <span class="row-detail">${t.stock.quantity.toLocaleString()} @ $${t.stock.costBasis.toFixed(2)}</span>
+        </div>
+        <div class="row-mv">$${Math.round(t.stock.mv).toLocaleString()}</div>
+        <div class="row-pl ${plClass(t.stock.pl)}">${fmtMoney(t.stock.pl, {sign:true, compact:true})}</div>
+    </div>`;
+}
+
+const warrantsHtml = t.warrants.map(w => `
+    <div class="row warrant-row" onclick="openPositionDetail('${w.id}')">
+        <div class="row-label">
+            <span class="row-type">Warrant</span>
+            <span class="row-detail">${w.quantity.toFixed(0)} @ $${w.costBasis.toFixed(3)}</span>
+        </div>
+        <div class="row-mv">$${Math.round(w.mv).toLocaleString()}</div>
+        <div class="row-pl ${plClass(w.pl)}">${fmtMoney(w.pl, {sign:true, compact:true})}</div>
+    </div>
+`).join('');
+
+const optsSorted = t.options.slice().sort((a,b) => {
+    const ad = a.dte === undefined ? 99999 : (a.dte < 0 ? 99999 : a.dte);
+    const bd = b.dte === undefined ? 99999 : (b.dte < 0 ? 99999 : b.dte);
+    if (ad !== bd) return ad - bd;
+    return a.strike - b.strike;
+});
+
+const optsHtml = optsSorted.map(o => {
+    const sideLetter = o.side === 'Short' ? 'S' : 'L';
+    const typeLetter = o.type === 'Call' ? 'C' : 'P';
+    const dteClass = o.dte < 0 ? 'danger' : (o.dte <= 7 ? 'danger' : (o.dte <= 21 ? 'warn' : ''));
+    const dteLabel = o.dte === undefined ? '?' : (o.dte < 0 ? 'exp' : `${o.dte}d`);
+    return `
+    <div class="row option-row" onclick="openPositionDetail('${o.id}')">
+        <div class="row-label">
+            <span class="opt-tag side-${sideLetter.toLowerCase()}">${sideLetter}</span>
+            <span class="opt-strike">$${o.strike}${typeLetter}</span>
+            <span class="opt-exp ${dteClass}">${dteLabel}</span>
+            <span class="row-detail">×${o.contracts} @ $${o.mark.toFixed(2)}</span>
+        </div>
+        <div class="row-mv">${fmtMoney(o.mv, {compact:true})}</div>
+        <div class="row-pl ${plClass(o.pl)}">${fmtMoney(o.pl, {sign:true, compact:true})}</div>
+    </div>`;
+}).join('');
+
+return `
+<div class="ticker-card">
+    <div class="ticker-header" onclick="openTickerDetail('${t.ticker}')">
+        <div class="ticker-id">
+            <span class="ticker-sym">${t.ticker}</span>
+            ${coverageHtml}
+        </div>
+        <div class="ticker-totals">
+            <div class="ticker-mv">$${Math.round(t.totalMV).toLocaleString()}</div>
+            <div class="ticker-pl ${plClass(t.totalPL)}">${fmtMoney(t.totalPL, {sign:true})}</div>
+        </div>
+    </div>
+    <div class="rows">${stockHtml}${warrantsHtml}${optsHtml}</div>
+</div>`;
+```
+
+}
+
+function iconFor(kind) {
+const map = { expiry: ‘⏱’, concentration: ‘▲’, coverage: ‘○’, profit: ‘✓’, loss: ‘✕’, empty: ‘·’ };
+return map[kind] || ‘•’;
+}
+
+// =================================================================// SIGNALS / ACTIONS
+// =================================================================
+function computeActions(summary) {
+const actions = [];
+
+```
+// Near-expiry options
+const nearExpiry = [];
+for (const t of summary.tickers) {
+    for (const o of t.options) {
+        if (o.dte !== undefined && o.dte >= 0 && o.dte <= 21) nearExpiry.push(o);
+    }
+}
+if (nearExpiry.length > 0) {
+    const earliest = Math.min(...nearExpiry.map(o => o.dte));
+    actions.push({
+        kind: 'expiry',
+        severity: earliest <= 7 ? 'danger' : 'warn',
+        label: `${nearExpiry.length} option${nearExpiry.length>1?'s':''} expiring within 21 days`,
+        detail: `Earliest: ${earliest} day${earliest!==1?'s':''}`
+    });
+}
+
+// Concentration
+const totalStockMV = summary.tickers.reduce((s,t) => s + t.stockMV, 0);
+const heavy = summary.tickers.filter(t => totalStockMV > 0 && t.stockMV/totalStockMV > 0.15);
+if (heavy.length > 0) {
+    actions.push({
+        kind: 'concentration',
+        severity: 'warn',
+        label: `${heavy.length} position${heavy.length>1?'s':''} over 15% concentration`,
+        detail: heavy.slice(0,3).map(t => t.ticker).join(', ') + (heavy.length>3 ? ` +${heavy.length-3} more` : '')
+    });
+}
+
+// Coverage
+const uncovered = summary.tickers.filter(t => t.coverageGap < 0 && t.shortCalls > 0);
+if (uncovered.length > 0) {
+    actions.push({
+        kind: 'coverage',
+        severity: 'warn',
+        label: `${uncovered.length} ticker${uncovered.length>1?'s':''} with uncovered short calls`,
+        detail: uncovered.map(t => t.ticker).join(', ')
+    });
+}
+
+// Big winners
+const bigWinners = [];
+for (const t of summary.tickers) {
+    if (t.stock && t.stock.ret > 0.5) bigWinners.push(t.stock);
+}
+if (bigWinners.length > 0) {
+    actions.push({
+        kind: 'profit',
+        severity: 'good',
+        label: `${bigWinners.length} stock${bigWinners.length>1?'s':''} above 50% gain`,
+        detail: bigWinners.sort((a,b)=>b.ret-a.ret).slice(0,3).map(s => `${s.ticker} ${fmtPct(s.ret, true)}`).join(', ')
+    });
+}
+
+// Big losers
+const bigLosers = [];
+for (const t of summary.tickers) {
+    if (t.stock && t.stock.ret < -0.2) bigLosers.push(t.stock);
+}
+if (bigLosers.length > 0) {
+    actions.push({
+        kind: 'loss',
+        severity: 'danger',
+        label: `${bigLosers.length} stock${bigLosers.length>1?'s':''} below 20% loss`,
+        detail: bigLosers.sort((a,b)=>a.ret-b.ret).slice(0,3).map(s => `${s.ticker} ${fmtPct(s.ret, true)}`).join(', ')
+    });
+}
+
+return actions;
+```
+
+}
+
+function computeFocus(summary, actions) {
+if (actions.length === 0) {
+return { category: ‘Steady’, label: ‘Portfolio steady — no urgent actions’, subtext: ’Last update: ’ + new Date().toLocaleDateString() };
+}
+// Pick highest severity
+const danger = actions.find(a => a.severity === ‘danger’);
+if (danger) return { category: dangerCategory(danger.kind), label: danger.label, subtext: danger.detail };
+const warn = actions.find(a => a.severity === ‘warn’);
+if (warn) return { category: warnCategory(warn.kind), label: warn.label, subtext: warn.detail };
+return { category: ‘Update’, label: actions[0].label, subtext: actions[0].detail };
+}
+
+function dangerCategory(kind) {
+return { expiry: ‘Imminent Expiry’, loss: ‘Loss Threshold’, coverage: ‘Coverage Risk’ }[kind] || ‘Action Required’;
+}
+function warnCategory(kind) {
+return { expiry: ‘Expiry Watch’, concentration: ‘Concentration’, coverage: ‘Coverage Risk’ }[kind] || ‘Review’;
+}
+
+// =================================================================
+// DETAIL DRAWER
+// =================================================================
+function openDrawer(htmlContent) {
+document.getElementById(‘drawer-content’).innerHTML = htmlContent;
+document.getElementById(‘drawer’).classList.add(‘open’);
+document.getElementById(‘drawer-overlay’).classList.add(‘open’);
+}
+
+function closeDrawer() {
+document.getElementById(‘drawer’).classList.remove(‘open’);
+document.getElementById(‘drawer-overlay’).classList.remove(‘open’);
+}
+
+function openTickerDetail(ticker) {
+const summary = buildPortfolioSummary();
+const t = summary.tickers.find(x => x.ticker === ticker);
+if (!t) return;
+
+```
+const greeksHtml = (t.netDelta || t.netTheta || t.netVega) ? `
+    <div class="greek-grid">
+        <div class="greek">
+            <div class="greek-label">Delta</div>
+            <div class="greek-value">${t.netDelta.toFixed(0)}</div>
+        </div>
+        <div class="greek">
+            <div class="greek-label">Gamma</div>
+            <div class="greek-value">${t.netGamma.toFixed(2)}</div>
+        </div>
+        <div class="greek">
+            <div class="greek-label">Theta/d</div>
+            <div class="greek-value">${fmtMoney(t.netTheta, {sign:true})}</div>
+        </div>
+        <div class="greek">
+            <div class="greek-label">Vega</div>
+            <div class="greek-value">${fmtMoney(t.netVega, {sign:true})}</div>
+        </div>
+    </div>` : '';
+
+openDrawer(`
+    <div class="drawer-header">
+        <div class="drawer-title">${t.ticker}</div>
+        <div class="drawer-sub">${t.options.length} option${t.options.length===1?'':'s'} · ${t.shares.toLocaleString()} shares</div>
+    </div>
+    <div class="drawer-body">
+        <div class="metric-grid">
+            <div class="metric">
+                <div class="metric-label">Market Value</div>
+                <div class="metric-value">$${Math.round(t.totalMV).toLocaleString()}</div>
+            </div>
+            <div class="metric">
+                <div class="metric-label">Open P/L</div>
+                <div class="metric-value ${plClass(t.totalPL)}">${fmtMoney(t.totalPL, {sign:true})}</div>
+            </div>
+            <div class="metric">
+                <div class="metric-label">Stock P/L</div>
+                <div class="metric-value small ${plClass(t.stockPL + t.warrantsPL)}">${fmtMoney(t.stockPL + t.warrantsPL, {sign:true})}</div>
+            </div>
+            <div class="metric">
+                <div class="metric-label">Options P/L</div>
+                <div class="metric-value small ${plClass(t.optionsPL)}">${fmtMoney(t.optionsPL, {sign:true})}</div>
+            </div>
+        </div>
+        ${greeksHtml}
+        ${t.shortCalls > 0 ? `
+        <div style="margin-top: 16px; padding: 14px; background: ${t.coverageGap < 0 ? 'var(--negative-bg)' : 'var(--positive-bg)'}; border-radius: 10px; font-size: 13px; line-height: 1.5;">
+            <strong style="font-family: 'Fraunces', serif; font-size: 14px; display: block; margin-bottom: 6px;">Coverage Analysis</strong>
+            ${t.shares.toLocaleString()} shares + ${t.longCalls} long calls covers ${(t.shares + t.longCalls*100).toLocaleString()} share equivalents.
+            ${t.shortCalls} short calls = ${(t.shortCalls*100).toLocaleString()} share equivalents short.
+            <strong>Net: ${t.coverageGap >= 0 ? '+' : ''}${Math.round(t.coverageGap).toLocaleString()}</strong>
+        </div>` : ''}
+    </div>
+`);
+```
+
+}
+
+function openPositionDetail(id) {
+const p = getActivePortfolio().positions.find(x => x.id === id);
+if (!p) return;
+const summary = buildPortfolioSummary();
+const t = summary.tickers.find(t => t.ticker === p.ticker);
+
+```
+if (p.kind === 'option') {
+    const enriched = t.options.find(o => o.id === id);
+    if (!enriched) return;
+    openDrawer(`
+        <div class="drawer-header">
+            <div class="drawer-title">${enriched.description}</div>
+            <div class="drawer-sub">${enriched.side} ${enriched.contracts} · ${enriched.dte === undefined ? '?' : enriched.dte}d to expiry</div>
+        </div>
+        <div class="drawer-body">
+            <div class="metric-grid">
+                <div class="metric">
+                    <div class="metric-label">Mark</div>
+                    <div class="metric-value">$${enriched.mark.toFixed(2)}</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-label">Cost Basis</div>
+                    <div class="metric-value">$${enriched.costBasis.toFixed(2)}</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-label">Market Value</div>
+                    <div class="metric-value small">${fmtMoney(enriched.mv, {sign:true})}</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-label">Open P/L</div>
+                    <div class="metric-value small ${plClass(enriched.pl)}">${fmtMoney(enriched.pl, {sign:true})}</div>
+                </div>
+            </div>
+            ${enriched.iv !== null ? `
+            <div class="greek-grid">
+                <div class="greek">
+                    <div class="greek-label">IV</div>
+                    <div class="greek-value">${(enriched.iv*100).toFixed(0)}%</div>
+                </div>
+                <div class="greek">
+                    <div class="greek-label">Δ Delta</div>
+                    <div class="greek-value">${enriched.delta.toFixed(2)}</div>
+                </div>
+                <div class="greek">
+                    <div class="greek-label">Θ Theta</div>
+                    <div class="greek-value">${fmtMoney(enriched.theta, {sign:true})}</div>
+                </div>
+                <div class="greek">
+                    <div class="greek-label">ν Vega</div>
+                    <div class="greek-value">${fmtMoney(enriched.vega, {sign:true})}</div>
+                </div>
+            </div>` : `
+            <div style="padding: 14px; background: var(--bg-soft); border-radius: 10px; font-size: 12px; color: var(--ink-soft); text-align: center;">
+                Greeks unavailable — option may be at intrinsic value or expired.
+            </div>`}
+            <div style="margin-top: 20px; display: flex; gap: 10px;">
+                <button class="btn btn-secondary" style="flex: 1;" onclick="closeDrawer()">Close</button>
+                <button class="btn" style="flex: 1; background: var(--negative);" onclick="deletePosition('${enriched.id}')">Delete</button>
+            </div>
+        </div>
+    `);
+} else {
+    const enriched = p.kind === 'stock' ? t.stock : t.warrants.find(w => w.id === id);
+    if (!enriched) return;
+    openDrawer(`
+        <div class="drawer-header">
+            <div class="drawer-title">${enriched.description}</div>
+            <div class="drawer-sub">${p.kind === 'warrant' ? 'Warrant' : 'Stock'} · ${enriched.quantity.toLocaleString()} units</div>
+        </div>
+        <div class="drawer-body">
+            <div class="metric-grid">
+                <div class="metric">
+                    <div class="metric-label">Mark</div>
+                    <div class="metric-value">$${enriched.mark.toFixed(2)}</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-label">Avg Cost</div>
+                    <div class="metric-value">$${enriched.costBasis.toFixed(2)}</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-label">Market Value</div>
+                    <div class="metric-value small">${fmtMoney(enriched.mv)}</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-label">Return</div>
+                    <div class="metric-value small ${plClass(enriched.pl)}">${fmtPct(enriched.ret, true)}</div>
+                </div>
+            </div>
+            <div style="margin-top: 20px; display: flex; gap: 10px;">
+                <button class="btn btn-secondary" style="flex: 1;" onclick="closeDrawer()">Close</button>
+                <button class="btn" style="flex: 1; background: var(--negative);" onclick="deletePosition('${enriched.id}')">Delete</button>
+            </div>
+        </div>
+    `);
+}
+```
+
+}
+
+function deletePosition(id) {
+if (!confirm(‘Delete this position?’)) return;
+getActivePortfolio().positions = getActivePortfolio().positions.filter(p => p.id !== id);
+saveState();
+closeDrawer();
+render();
+showToast(‘Position deleted’);
+}
+
+// =================================================================// ADD POSITION
+// =================================================================
+function openAddDrawer() {
+openDrawer(`<div class="drawer-header"> <div class="drawer-title">Add Position</div> <div class="drawer-sub">Manual entry</div> </div> <div class="drawer-body"> <div class="tab-group"> <button class="tab-pill active" id="tab-pill-stock" onclick="switchAddTab('stock')">Stock</button> <button class="tab-pill" id="tab-pill-option" onclick="switchAddTab('option')">Option</button> </div> <div id="add-form-stock"> <div class="form-section"> <div class="form-label">Ticker</div> <input class="form-input" id="add-stock-ticker" placeholder="AAPL" /> </div> <div class="form-section"> <div class="form-label">Description</div> <input class="form-input" id="add-stock-desc" placeholder="APPLE INC" /> </div> <div class="form-row"> <div> <div class="form-label">Quantity</div> <input class="form-input" id="add-stock-qty" type="number" step="0.0001" placeholder="100" /> </div> <div> <div class="form-label">Mark Price</div> <input class="form-input" id="add-stock-mark" type="number" step="0.01" placeholder="0.00" /> </div> </div> <div class="form-section" style="margin-top: 12px;"> <div class="form-label">Cost Basis (per share)</div> <input class="form-input" id="add-stock-cost" type="number" step="0.01" placeholder="0.00" /> </div> <div class="form-actions"> <button class="btn btn-secondary" onclick="closeDrawer()">Cancel</button> <button class="btn" onclick="submitAddStock()">Add</button> </div> </div> <div id="add-form-option" style="display:none;"> <div class="form-section"> <div class="form-label">Underlying Ticker</div> <input class="form-input" id="add-opt-ticker" placeholder="AAPL" /> </div> <div class="form-section"> <div class="form-label">Description</div> <input class="form-input" id="add-opt-desc" placeholder="AAPL 19JUN26 200 C" /> </div> <div class="form-row"> <div> <div class="form-label">Strike</div> <input class="form-input" id="add-opt-strike" type="number" step="0.5" placeholder="200" /> </div> <div> <div class="form-label">Type</div> <select class="form-select" id="add-opt-type"> <option value="Call">Call</option> <option value="Put">Put</option> </select> </div> </div> <div class="form-section" style="margin-top: 12px;"> <div class="form-label">Expiry</div> <input class="form-input" id="add-opt-expiry" type="date" /> </div> <div class="form-row" style="margin-top: 12px;"> <div> <div class="form-label">Contracts (+ long, − short)</div> <input class="form-input" id="add-opt-qty" type="number" step="1" placeholder="1" /> </div> <div> <div class="form-label">Mark Price</div> <input class="form-input" id="add-opt-mark" type="number" step="0.01" placeholder="0.00" /> </div> </div> <div class="form-section" style="margin-top: 12px;"> <div class="form-label">Cost Basis (per contract)</div> <input class="form-input" id="add-opt-cost" type="number" step="0.01" placeholder="0.00" /> </div> <div class="form-actions"> <button class="btn btn-secondary" onclick="closeDrawer()">Cancel</button> <button class="btn" onclick="submitAddOption()">Add</button> </div> </div> </div>`);
+}
+
+function switchAddTab(kind) {
+document.getElementById(‘tab-pill-stock’).classList.toggle(‘active’, kind === ‘stock’);
+document.getElementById(‘tab-pill-option’).classList.toggle(‘active’, kind === ‘option’);
+document.getElementById(‘add-form-stock’).style.display = kind === ‘stock’ ? ‘block’ : ‘none’;
+document.getElementById(‘add-form-option’).style.display = kind === ‘option’ ? ‘block’ : ‘none’;
+}
+
+function submitAddStock() {
+const ticker = document.getElementById(‘add-stock-ticker’).value.trim().toUpperCase();
+const desc = document.getElementById(‘add-stock-desc’).value.trim() || ticker;
+const qty = parseFloat(document.getElementById(‘add-stock-qty’).value);
+const mark = parseFloat(document.getElementById(‘add-stock-mark’).value);
+const cost = parseFloat(document.getElementById(‘add-stock-cost’).value);
+
+```
+if (!ticker || isNaN(qty) || isNaN(mark) || isNaN(cost)) {
+    showToast('Fill all fields', 'error'); return;
+}
+
+getActivePortfolio().positions.push({
+    id: cryptoId(), kind: 'stock', ticker, description: desc,
+    quantity: qty, mark, costBasis: cost, source: 'manual', importedAt: Date.now(),
+});
+saveState();
+closeDrawer();
+render();
+showToast(`Added ${ticker}`);
+```
+
+}
+
+function submitAddOption() {
+const ticker = document.getElementById(‘add-opt-ticker’).value.trim().toUpperCase();
+const desc = document.getElementById(‘add-opt-desc’).value.trim() || `${ticker} option`;
+const strike = parseFloat(document.getElementById(‘add-opt-strike’).value);
+const type = document.getElementById(‘add-opt-type’).value;
+const expiry = document.getElementById(‘add-opt-expiry’).value;
+const qty = parseInt(document.getElementById(‘add-opt-qty’).value);
+const mark = parseFloat(document.getElementById(‘add-opt-mark’).value);
+const cost = parseFloat(document.getElementById(‘add-opt-cost’).value);
+
+```
+if (!ticker || !expiry || isNaN(strike) || isNaN(qty) || isNaN(mark) || isNaN(cost)) {
+    showToast('Fill all fields', 'error'); return;
+}
+
+getActivePortfolio().positions.push({
+    id: cryptoId(), kind: 'option', ticker, description: desc,
+    quantity: qty, mark, costBasis: cost,
+    strike, expiry, type,
+    source: 'manual', importedAt: Date.now(),
+});
+saveState();
+closeDrawer();
+render();
+showToast(`Added ${ticker} option`);
+```
+
+}
+
+// =================================================================
+// SETTINGS
+// =================================================================
+function renderSettings() {
+document.getElementById(‘cash-input’).value = getActivePortfolio().cash || ‘’;
+document.getElementById(‘rate-input’).value = getActivePortfolio().riskFreeRate;
+document.getElementById(‘div-input’).value = getActivePortfolio().divYield;
+}
+
+function saveSettings() {
+const cash = parseFloat(document.getElementById(‘cash-input’).value) || 0;
+const rate = parseFloat(document.getElementById(‘rate-input’).value) || 0.045;
+const div = parseFloat(document.getElementById(‘div-input’).value) || 0;
+getActivePortfolio().cash = cash;
+getActivePortfolio().riskFreeRate = rate;
+getActivePortfolio().divYield = div;
+saveState();
+render();
+showToast(‘Settings saved’);
+}
+
+function clearActivePortfolio() {
+const pf = getActivePortfolio();
+if (!confirm(`Clear all positions in "${pf.name}"?`)) return;
+pf.positions = [];
+pf.lastImport = null;
+saveState();
+render();
+showToast(‘Portfolio cleared’);
+}
+
+function clearAllData() {
+if (!confirm(‘Delete ALL portfolios and start fresh?’)) return;
+if (!confirm(‘This deletes all data across all portfolios. Cannot be undone.’)) return;
+localStorage.removeItem(STORAGE_KEY);
+state = defaultState();
+render();
+showToast(‘All data cleared’);
+}
+
+function renderPortfolioManagement() {
+const list = document.getElementById(‘pf-management-list’);
+const importLabel = document.getElementById(‘active-pf-name-import’);
+if (!list) return;
+
+```
+const all = getAllPortfolios();
+const activeId = state.activePortfolioId;
+
+if (importLabel) {
+    importLabel.textContent = getActivePortfolio().name;
+}
+
+list.innerHTML = all.map(pf => {
+    const isActive = pf.id === activeId;
+    const positions = pf.positions.length;
+    const lastImp = pf.lastImport 
+        ? new Date(pf.lastImport).toLocaleDateString('en-US', {month: 'short', day: 'numeric', year: 'numeric'}) 
+        : 'never';
+    return `
+    <div class="pf-card">
+        <div class="pf-card-header">
+            <div>
+                <div class="pf-card-name ${isActive ? 'active' : ''}">${escapeHtml(pf.name)}${isActive ? ' · active' : ''}</div>
+                <div class="pf-card-meta">${positions} position${positions===1?'':'s'} · last import ${lastImp}</div>
+            </div>
+        </div>
+        <div class="pf-card-actions">
+            ${!isActive ? `<button class="btn btn-secondary" data-action="switch-portfolio" data-pf-id="${pf.id}">Switch to</button>` : ''}
+            <button class="btn btn-secondary" data-action="rename-portfolio" data-pf-id="${pf.id}">Rename</button>
+            ${all.length > 1 ? `<button class="btn btn-secondary" style="color: var(--negative);" data-action="delete-portfolio" data-pf-id="${pf.id}">Delete</button>` : ''}
+        </div>
+    </div>`;
+}).join('');
+```
+
+}
+
+function promptRenamePortfolio(id) {
+const pf = state.portfolios[id];
+if (!pf) return;
+const newName = prompt(‘Rename portfolio:’, pf.name);
+if (!newName || !newName.trim()) return;
+renamePortfolio(id, newName.trim());
+}
+
+function confirmDeletePortfolio(id) {
+const pf = state.portfolios[id];
+if (!pf) return;
+if (!confirm(`Delete "${pf.name}" and all its ${pf.positions.length} positions?`)) return;
+if (!confirm(‘Are you sure? This cannot be undone.’)) return;
+deletePortfolio(id);
+}
+
+// =================================================================
+// BACKUP & RESTORE
+// =================================================================
+function exportBackup() {
+try {
+const blob = new Blob([JSON.stringify(state, null, 2)], { type: ‘application/json’ });
+const url = URL.createObjectURL(blob);
+const a = document.createElement(‘a’);
+const dateStr = new Date().toISOString().slice(0, 19).replace(/[:T]/g, ‘-’);
+a.href = url;
+a.download = `pro_portfolio_backup_${dateStr}.json`;
+document.body.appendChild(a);
+a.click();
+document.body.removeChild(a);
+URL.revokeObjectURL(url);
+showToast(‘Backup downloaded’);
+} catch (e) {
+showToast(’Export failed: ’ + e.message, ‘error’);
+}
+}
+
+function importBackup(text) {
+try {
+const parsed = JSON.parse(text);
+if (!parsed || !parsed.portfolios || !parsed.activePortfolioId
+|| !parsed.portfolios[parsed.activePortfolioId]) {
+showToast(‘Invalid backup file’, ‘error’);
+return;
+}
+if (!confirm(‘Replace all current data with backup? Cannot be undone.’)) return;
+state = parsed;
+saveState();
+render();
+showToast(‘Backup restored’);
+} catch (e) {
+showToast(’Import failed: ’ + e.message, ‘error’);
+}
+}
+
+document.getElementById(‘backup-file’).addEventListener(‘change’, (e) => {
+const file = e.target.files[0];
+if (!file) return;
+const reader = new FileReader();
+reader.onload = (ev) => importBackup(ev.target.result);
+reader.readAsText(file);
+e.target.value = ‘’; // allow re-upload of same file
+});
+
+function updateStorageStatus() {
+const el = document.getElementById(‘storage-status’);
+if (!el) return;
+const status = getSaveStatus();
+const healthy = checkStorageHealth();
+let line = status.label;
+if (!healthy) line += ’ ⚠️ localStorage not working — using session-only fallback’;
+else if (!status.ok) line += ’ ⚠️ ’ + status.error;
+el.textContent = line;
+}
+
+// =================================================================// CSV IMPORT UI
+// =================================================================
+document.getElementById(‘csv-file’).addEventListener(‘change’, (e) => {
+const file = e.target.files[0];
+if (!file) return;
+const reader = new FileReader();
+reader.onload = (ev) => importIBKRCSV(ev.target.result);
+reader.readAsText(file);
+});
+
+function importPastedCsv() {
+const text = document.getElementById(‘csv-paste’).value;
+if (!text.trim()) { showToast(‘Paste some CSV first’, ‘error’); return; }
+importIBKRCSV(text);
+document.getElementById(‘csv-paste’).value = ‘’;
+}
+
+const dropZone = document.getElementById(‘csv-drop-zone’);
+[‘dragenter’,‘dragover’].forEach(ev => dropZone.addEventListener(ev, e => {
+e.preventDefault(); dropZone.classList.add(‘drag’);
+}));
+[‘dragleave’,‘drop’].forEach(ev => dropZone.addEventListener(ev, e => {
+e.preventDefault(); dropZone.classList.remove(‘drag’);
+}));
+dropZone.addEventListener(‘drop’, (e) => {
+const file = e.dataTransfer.files[0];
+if (!file) return;
+const reader = new FileReader();
+reader.onload = (ev) => importIBKRCSV(ev.target.result);
+reader.readAsText(file);
+});
+
+// =================================================================
+// NAVIGATION & UI
+// =================================================================
+function navigateTo(screen) {
+document.querySelectorAll(’.screen’).forEach(s => s.classList.remove(‘active’));
+document.querySelectorAll(’.tab’).forEach(t => t.classList.remove(‘active’));
+document.getElementById(`screen-${screen}`).classList.add(‘active’);
+document.querySelectorAll(’.tab’).forEach(t => {
+if (t.querySelector(’.tab-label’).textContent.toLowerCase() === screen) t.classList.add(‘active’);
+});
+window.scrollTo(0, 0);
+}
+
+function showToast(msg, type = ‘info’) {
+const t = document.getElementById(‘toast’);
+t.textContent = msg;
+t.className = ‘toast’ + (type === ‘error’ ? ’ error’ : ‘’) + ’ show’;
+setTimeout(() => t.classList.remove(‘show’), 2400);
+}
+
+// Event delegation for data-action handlers (more reliable than inline onclick on iOS)
+document.addEventListener(‘click’, function(e) {
+const target = e.target.closest(’[data-action]’);
+if (!target) return;
+const action = target.dataset.action;
+const pfId = target.dataset.pfId;
+
+```
+if (action === 'switch-portfolio' && pfId) {
+    e.preventDefault();
+    e.stopPropagation();
+    closeDrawer();
+    switchPortfolio(pfId);
+} else if (action === 'rename-portfolio' && pfId) {
+    e.preventDefault();
+    e.stopPropagation();
+    promptRenamePortfolio(pfId);
+} else if (action === 'delete-portfolio' && pfId) {
+    e.preventDefault();
+    e.stopPropagation();
+    confirmDeletePortfolio(pfId);
+}
+```
+
+});
+
+document.getElementById(‘search-input’).addEventListener(‘input’, () => renderPositions());
+
+// =================================================================
+// PORTFOLIO MENU
+// =================================================================
+function openPortfolioMenu() {
+const all = getAllPortfolios();
+const active = state.activePortfolioId;
+
+```
+let listHtml = all.map(pf => {
+    const isActive = pf.id === active;
+    const positions = pf.positions.length;
+    const lastImp = pf.lastImport 
+        ? new Date(pf.lastImport).toLocaleDateString('en-US', {month: 'short', day: 'numeric'}) 
+        : 'never';
+    return `
+    <div class="pf-menu-item ${isActive ? 'active' : ''}" data-action="switch-portfolio" data-pf-id="${pf.id}">
+        <div class="pf-menu-item-info">
+            <div class="pf-menu-item-name">${escapeHtml(pf.name)}</div>
+            <div class="pf-menu-item-meta">${positions} position${positions===1?'':'s'} · last import ${lastImp}</div>
+        </div>
+        ${isActive ? '<div class="pf-menu-item-check">✓</div>' : ''}
+    </div>`;
+}).join('');
+
+openDrawer(`
+    <div class="drawer-header">
+        <div class="drawer-title">Portfolios</div>
+        <div class="drawer-sub">${all.length} portfolio${all.length===1?'':'s'} · tap to switch</div>
+    </div>
+    <div class="drawer-body" style="padding: 0 0 16px;">
+        ${listHtml}
+        <div class="pf-menu-create">
+            <button class="btn" style="width: 100%;" onclick="promptCreatePortfolio()">+ New portfolio</button>
+            <button class="btn-ghost" style="width: 100%; margin-top: 8px; padding: 8px;" onclick="closeDrawer(); navigateTo('data');">Manage portfolios →</button>
+        </div>
+    </div>
+`);
+```
+
+}
+
+function promptCreatePortfolio() {
+const name = prompt(‘Name this portfolio:’, ‘New Portfolio’);
+if (!name || !name.trim()) return;
+closeDrawer();
+createPortfolio(name.trim());
+}
+
+function escapeHtml(s) {
+return String(s).replace(/[&<>”’]/g, c => ({’&’:’&’,’<’:’<’,’>’:’>’,’”’:’"’,”’”:’'’}[c]));
+}
+
+function updatePortfolioBrandLabels() {
+const active = getActivePortfolio();
+if (!active) return;
+document.querySelectorAll(’[id^=“brand-pf-name-”]’).forEach(el => {
+el.textContent = active.name;
+});
+}
+
+// =================================================================
+// INSTALL BANNER
+// =================================================================
+function showInstallBannerIfNeeded() {
+// Don’t show if already running standalone (installed)
+if (window.navigator.standalone === true || window.matchMedia(’(display-mode: standalone)’).matches) {
+return;
+}
+// Don’t show if user dismissed it
+if (localStorage.getItem(‘install_banner_dismissed’) === ‘true’) {
+return;
+}
+
+```
+// Detect platform and tailor message
+const ua = navigator.userAgent;
+const isIOS = /iPad|iPhone|iPod/.test(ua) && !window.MSStream;
+const isSafari = isIOS && /Safari/.test(ua) && !/CriOS|FxiOS|EdgiOS/.test(ua);
+const isAndroid = /Android/.test(ua);
+const isMacSafari = /Macintosh/.test(ua) && /Safari/.test(ua) && !/Chrome/.test(ua);
+
+const titleEl = document.getElementById('install-banner-title');
+const textEl = document.getElementById('install-banner-text');
+
+if (isIOS && isSafari) {
+    titleEl.textContent = 'Install on iPhone/iPad';
+    textEl.innerHTML = 'Tap the <strong>Share</strong> button (square with up arrow), scroll down, then tap <strong>Add to Home Screen</strong>. <em style="opacity:0.75;">If you see a header banner after install, the file needs to be hosted on a clean URL (GitHub Pages or similar) — see Data tab.</em>';
+} else if (isIOS && !isSafari) {
+    titleEl.textContent = 'Open in Safari first';
+    textEl.innerHTML = 'To install this as an app on iOS, you need to open it in <strong>Safari</strong> (not Chrome or another browser). Then use the Share button to Add to Home Screen.';
+} else if (isAndroid) {
+    titleEl.textContent = 'Install on Android';
+    textEl.innerHTML = 'Tap your browser menu (three dots) and choose <strong>Add to Home Screen</strong> or <strong>Install app</strong>.';
+} else if (isMacSafari) {
+    titleEl.textContent = 'Install on Mac';
+    textEl.innerHTML = 'In Safari, go to <strong>File → Add to Dock</strong> to install this as a Mac app, or just bookmark it.';
+} else {
+    titleEl.textContent = 'Save this app';
+    textEl.innerHTML = 'Bookmark this page, or open it in Safari/Chrome on mobile to install it as an app on your home screen.';
+}
+
+// Show banner after a short delay so it doesn't pop in instantly
+setTimeout(() => {
+    document.getElementById('install-banner').classList.add('show');
+}, 800);
+```
+
+}
+
+function dismissInstallBanner(remember = false) {
+document.getElementById(‘install-banner’).classList.remove(‘show’);
+if (remember) {
+localStorage.setItem(‘install_banner_dismissed’, ‘true’);
+}
+}
+
+// Call on load
+showInstallBannerIfNeeded();
+
+// Storage health check on startup
+if (!checkStorageHealth()) {
+setTimeout(() => {
+showToast(‘Storage unavailable — data will not persist’, ‘error’);
+}, 1500);
+}
+
+// Initial render
+render();
+</script>
+
+</body>
+</html>
